@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edu Bridge - Login</title>
+    <style>
+        /* Enhanced futuristic styling with animations. Neutral colors with animated ombre background for a dynamic, inviting feel. */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            }
+            50% {
+                box-shadow: 0 5px 25px rgba(74, 144, 226, 0.6);
+            }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Better ombre: Multi-color neutral gradient with subtle animation for movement */
+            background: linear-gradient(-45deg, #f5f7fa 0%, #c3cfe2 25%, #a8b8d8 50%, #c3cfe2 75%, #f5f7fa 100%);
+            background-size: 400% 400%; /* Larger size for smoother animation */
+            animation: gradientShift 15s ease infinite; /* Slow, gentle shifting for futuristic flow */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+            overflow: hidden; /* Prevent scroll on animation */
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95); /* Slightly more opaque for better readability */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Deeper shadow for more depth */
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            backdrop-filter: blur(15px); /* Enhanced blur for glassy futuristic effect */
+            animation: fadeInUp 1s ease-out; /* Entrance animation: fades in and rises */
+        }
+
+        h1 {
+            color: #4a90e2;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease-out 0.2s both; /* Staggered entrance */
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            animation: fadeInUp 1s ease-out 0.4s both; /* Staggered entrance */
+        }
+
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: all 0.3s ease; /* Smooth transitions */
+            background: rgba(255, 255, 255, 0.9);
+            animation: fadeInUp 1s ease-out 0.6s both; /* Staggered entrance for inputs */
+        }
+
+        input[type="email"]:focus, input[type="password"]:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 15px rgba(74, 144, 226, 0.4); /* Enhanced glow on focus */
+            transform: scale(1.02); /* Subtle raise on focus for interactivity */
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Smooth hover transition */
+            margin-top: 10px;
+            animation: fadeInUp 1s ease-out 0.8s both, pulseGlow 2s ease-in-out infinite 1s; /* Entrance + subtle pulsing glow after load */
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.02); /* Enhanced raise and slight scale for more dynamic feel */
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.5);
+        }
+
+        button:active {
+            transform: translateY(-1px) scale(1);
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: none;
+            animation: fadeInUp 0.5s ease-out; /* Quick animation for error */
+        }
+
+        /* Responsive for mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            body {
+                animation-duration: 20s; /* Slower animation on mobile for less distraction */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edu Bridge</h1>
+        <p>Connect with opportunities. Login to get started!</p>
+        
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <button type="submit">Login</button>
+            <div id="errorMessage" class="error">Please fill in all fields.</div>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript remains the same: Basic validation and simulated login
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (!email || !password) {
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Simulate login success
+            alert('Welcome to Edu Bridge! Logging you in... ');
+            console.log('Login attempted with email:', email);
+
+            // Reset form
+            this.reset();
+            errorMessage.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

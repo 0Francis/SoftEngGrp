@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edu Bridge - Sign Up</title>
+    <style>
+        /* Consistent futuristic styling with animations. Neutral colors, animated ombre background for dynamic, inviting feel. */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            }
+            50% {
+                box-shadow: 0 5px 25px rgba(74, 144, 226, 0.6);
+            }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Animated ombre background: Neutral gradient with gentle movement */
+            background: linear-gradient(-45deg, #f5f7fa 0%, #c3cfe2 25%, #a8b8d8 50%, #c3cfe2 75%, #f5f7fa 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+            overflow: hidden; /* Prevent scroll on animation */
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95); /* Slightly more opaque for better readability */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Deeper shadow for more depth */
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            backdrop-filter: blur(15px); /* Enhanced blur for glassy futuristic effect */
+            animation: fadeInUp 1s ease-out; /* Entrance animation: fades in and rises */
+        }
+
+        h1 {
+            color: #4a90e2;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease-out 0.2s both; /* Staggered entrance */
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            animation: fadeInUp 1s ease-out 0.4s both; /* Staggered entrance */
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: all 0.3s ease; /* Smooth transitions */
+            background: rgba(255, 255, 255, 0.9);
+            animation: fadeInUp 1s ease-out 0.6s both; /* Staggered entrance for inputs */
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 15px rgba(74, 144, 226, 0.4); /* Enhanced glow on focus */
+            transform: scale(1.02); /* Subtle raise on focus for interactivity */
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Smooth hover transition */
+            margin-top: 10px;
+            animation: fadeInUp 1s ease-out 0.8s both, pulseGlow 2s ease-in-out infinite 1s; /* Entrance + subtle pulsing glow after load */
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.02); /* Enhanced raise and slight scale for more dynamic feel */
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.5);
+        }
+
+        button:active {
+            transform: translateY(-1px) scale(1);
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: none;
+            animation: fadeInUp 0.5s ease-out; /* Quick animation for error */
+        }
+
+        .success {
+            color: #27ae60;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .link {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .link:hover {
+            color: #357abd;
+        }
+
+        /* Responsive for mobile (youth-friendly) */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            body {
+                animation-duration: 20s; /* Slower animation on mobile for less distraction */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edu Bridge</h1>
+        <p>Join the bridge to your future. Sign up today and start connecting with opportunities!</p>
+        
+        <form id="signupForm">
+            <input type="text" id="name" placeholder="Enter your full name" required>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <input type="password" id="password" placeholder="Enter your password (min 6 characters)" required>
+            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+            <button type="submit">Sign Up</button>
+            <div id="errorMessage" class="error">Please check your details and try again.</div>
+            <div id="successMessage" class="success">Account created! Redirecting to home...</div>
+            <p style="margin-top: 20px; font-size: 0.95em; color: #666;">
+                Already have an account? <a href="login.html" class="link">Login here</a>
+            </p>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript for functioning submit button: Validation and simulated signup
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            // Hide previous messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            // Validation
+            if (!name || !email || !password || !confirmPassword) {
+                errorMessage.textContent = 'Please fill in all fields.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Email format validation (basic regex)
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorMessage.textContent = 'Please enter a valid email address.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Password length
+            if (password.length < 6) {
+                errorMessage.textContent = 'Password must be at least 6 characters long.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Confirm password match
+            if (password !== confirmPassword) {
+                errorMessage.textContent = 'Passwords do not match.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Simulate signup success (in a real app, this would POST to a server)
+            // For demo: Store in localStorage (e.g., for profile name)
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userEmail', email);
+            console.log('Signup successful for:', name, email);
+
+            // Show success and redirect to home.html after a short delay
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                window.location.href = 'home.html'; // Redirect to home page
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
