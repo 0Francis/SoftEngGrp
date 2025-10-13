@@ -1,11 +1,10 @@
 <?php
-// functions.php - Updated for Composer PHPMailer
+
 
 require_once 'config.php';
-require_once 'db.php';  // Or 'database.php'
+require_once 'db.php';  
 
-// Composer autoload (handles PHPMailer)
-if (file_exists('../vendor/autoload.php')) {  // '../' because functions.php is in includes/
+if (file_exists('../vendor/autoload.php')) { 
     require '../vendor/autoload.php';
 } else {
     die("Composer vendor not found. Run 'composer install' in SoftEngGrp folder.");
@@ -14,9 +13,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-session_start();  // Start session globally
+session_start();  
 
-// Session functions (unchanged from before)
 function startSecureSession() {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -47,7 +45,7 @@ function logout() {
     exit;
 }
 
-// CSRF functions (unchanged)
+// CSRF functions 
 function generateCSRFToken() {
     if (empty($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -117,7 +115,7 @@ function sendVerificationEmail($email, $fullName, $token, $role = 'youth') {
 
 // User exists check (checks youth or organizations; returns table name)
 function userExists($pdo, $email) {
-    $tables = ['youth', 'organizations'];  // Add 'admins' later if needed
+    $tables = ['youth', 'organizations'];  
     foreach ($tables as $table) {
         $idCol = ($table === 'youth') ? 'youth_id' : 'org_id';
         $stmt = $pdo->prepare("SELECT $idCol FROM $table WHERE email = ?");

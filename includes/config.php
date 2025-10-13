@@ -1,5 +1,5 @@
 <?php
-// config.php - Database and app configuration
+
 
 // Database (PostgreSQL)
 define('DB_HOST', 'localhost');
