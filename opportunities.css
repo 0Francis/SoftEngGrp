@@ -1,0 +1,211 @@
+/* opportunities.css */
+/* ------------------ */
+/* Modern Futuristic Blue & White Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+  --primary: #007bff;
+  --primary-light: #66b3ff;
+  --primary-dark: #0056b3;
+  --bg: #f4f8ff;
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --text: #0b1a33;
+  --muted: #6c757d;
+  --border: rgba(0, 123, 255, 0.15);
+  --shadow: 0 10px 30px rgba(0, 123, 255, 0.15);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(120deg, #e6f2ff, #ffffff);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.topbar {
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.topbar h1 {
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
+}
+
+/* CONTAINER */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1rem;
+  flex: 1;
+}
+
+/* FORM CARD */
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(15px);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow);
+  padding: 2rem 2.5rem;
+  width: 100%;
+  max-width: 700px;
+  transition: var(--transition);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(0, 123, 255, 0.08), transparent 70%);
+  animation: rotate 10s linear infinite;
+  z-index: 0;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.card * {
+  position: relative;
+  z-index: 1;
+}
+
+/* FORM ROWS */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.form-row.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+label {
+  font-weight: 500;
+  color: var(--primary-dark);
+  margin-bottom: 0.4rem;
+}
+
+input, textarea, select {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 0.8rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: var(--transition);
+  outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.25);
+}
+
+textarea {
+  resize: none;
+}
+
+small.err {
+  color: #dc3545;
+  margin-top: 0.2rem;
+}
+
+small.muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* BUTTONS */
+.btn {
+  background: white;
+  color: var(--primary-dark);
+  padding: 0.7rem 1.5rem;
+  border-radius: 1.5rem;
+  text-decoration: none;
+  border: 2px solid var(--primary);
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+}
+
+.btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+}
+
+.btn.primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn.primary:hover {
+  background: var(--primary-dark);
+}
+
+/* FORM ACTIONS */
+.form-row.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* MESSAGE BOX */
+.message {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+  color: var(--primary-dark);
+}
+
+/* HOVER CARD ANIMATION */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 123, 255, 0.25);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .form-row.split {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
