@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edu Bridge - Welcome</title>
+    <style>
+        /* Consistent futuristic styling with animations. Neutral colors, animated ombre background for dynamic, inviting feel. */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); }
+            50% { box-shadow: 0 5px 25px rgba(74, 144, 226, 0.6); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(-45deg, #f5f7fa 0%, #c3cfe2 25%, #a8b8d8 50%, #c3cfe2 75%, #f5f7fa 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header: Logo and Login on top left, Sign Up on right */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            color: #4a90e2;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #357abd;
+        }
+
+        /* Left Auth: Logo and Login button on top left */
+        .left-auth {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Auth Buttons: General styles */
+        .auth-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .login-btn {
+            background: transparent;
+            color: #4a90e2;
+            border: 2px solid #4a90e2;
+        }
+
+        .login-btn:hover {
+            background: #4a90e2;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        /* Right Auth: Sign Up button on far right */
+        .right-auth {
+            display: flex;
+            align-items: center;
+        }
+
+        .signup-btn {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            box-shadow: 0 3px 10px rgba(74, 144, 226, 0.3);
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        .signup-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+        }
+
+        /* Hero Section: Welcoming title and description (no CTAs) */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero h1 {
+            color: #4a90e2;
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 1.4em;
+            margin-bottom: 50px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Youths Photos Section: Gallery of diverse youths in communities */
+        .youths-section {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 80px 20px;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            backdrop-filter: blur(15px);
+            animation: fadeInUp 1s ease-out 0.4s both, float 4s ease-in-out infinite 1s;
+            text-align: center;
+        }
+
+        .youths-section h2 {
+            color: #4a90e2;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .youths-section p {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .youths-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .youth-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: slideInLeft 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .youth-card:nth-child(1) { animation-delay: 1.2s; }
+        .youth-card:nth-child(2) { animation-delay: 1.4s; }
+        .youth-card:nth-child(3) { animation-delay: 1.6s; }
+        .youth-card:nth-child(4) { animation-delay: 1.8s; }
+
+        .youth-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(74, 144, 226, 0.3);
+        }
+
+        .youth-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .youth-card p {
+            padding: 15px;
+            color: #666;
+            font-size: 1em;
+            margin: 0;
+            background: white;
+        }
+
+        /* Modal Popup: Small, simple popup for user type selection (shared styles for both modals) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 20% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 350px; /* Smaller for "small popup" feel */
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            animation: modalFadeIn 0.3s ease-out;
+            position: relative;
+        }
+
+        .modal p {
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .user-type-btn {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .youth-btn {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            box-shadow: 0 3px 10px rgba(74, 144, 226, 0.3);
+        }
+
+        .youth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+        }
+
+        .org-btn {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.3);
+        }
+
+        .org-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #4a90e2;
+        }
+
+        /* Responsive design for mobile */
+        @media (max-width: 768px) {
+            header { padding: 10px 20px; flex-wrap: wrap; gap: 10px; }
+            .logo { font-size: 1.5em; }
+            .left-auth { gap: 10px; }
+            .auth-btn { padding: 8px 16px; font-size: 0.95em; min-width: 80px; }
+            .hero { padding: 60px 20px; }
+            .hero h1 { font-size: 2.5em; }
+            .hero p { font-size: 1.1em; }
+            .youths-section { margin: 40px 15px; padding: 30px 20px; }
+            .youths-section h2 { font-size: 2em; }
+            .youths-gallery { grid-template-columns: 1fr; gap: 20px; }
+            .modal-content { margin: 25% auto; padding: 25px; width: 95%; max-width: none; }
+            body { animation-duration: 20s; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header: Logo and Login on top left, Sign Up on right -->
+    <header>
+        <div class="left-auth">
+            <a href="landing.html" class="logo">Edu Bridge</a>
+        </div>
+        <div class="right-auth">
+            <a href="#" class="auth-btn signup-btn" onclick="showSignupModal(); return false;">Sign Up</a>
+            <a href="#" class="auth-btn login-btn" onclick="showLoginModal(); return false;">Login</a>
+        </div>
+    </header>
+
+    <!-- Hero Welcome Section -->
+    <section class="hero">
+        <h1>Welcome to Edu Bridge</h1>
+        <p>Edu Bridge is your ultimate platform connecting youths with exciting job opportunities, internships, and volunteer roles from top companies and NGOs. Build your future, one connection at a time!</p>
+    </section>
+
+    <!-- Youths Photos Section -->
+    <section class="youths-section">
+        <h2>Join a Vibrant Community</h2>
+        <p>Meet the young talents like you who are bridging gaps between education and employment. From urban innovators to rural leaders, Edu Bridge empowers everyone.</p>
+        <div class="youths-gallery">
+            <div class="youth-card">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=200&fit=crop&crop=entropy" alt="Youths in urban community collaborating on a project">
+                <p>Urban Innovators: Tech enthusiasts building apps for change.</p>
+            </div>
+            <div class="youth-card">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=200&fit=crop&crop=entropy" alt="Youths in rural community volunteering with NGO">
+                <p>Rural Leaders: Empowering villages through sustainable projects.</p>
+            </div>
+            <div class="youth-card">
+                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&h=200&fit=crop&crop=entropy" alt="Diverse youths in training session">
+                <p>Creative Minds: Marketing and design interns at leading firms.</p>
+            </div>
+            <div class="youth-card">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop&crop=entropy" alt="Youths networking in community event">
+                <p>Network Builders: Connecting with companies for entry-level roles.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal Popup: For existing users (different paragraph and redirects) -->
+    <div id="loginModal" class="modal" onclick="closeLoginModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <p>You already have an account? Please select your account type to log in.</p>
+            <button class="user-type-btn youth-btn" onclick="redirectToYouthLogin(); closeLoginModal(); return false;">Youth</button>
+            <button class="user-type-btn org-btn" onclick="redirectToOrgLogin(); closeLoginModal(); return false;">Organization</button>
+        </div>
+    </div>
+
+    <!-- Signup Modal Popup: For new users (different paragraph and redirects) -->
+    <div id="signupModal" class="modal" onclick="closeSignupModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close" onclick="closeSignupModal()">&times;</span>
+            <p>You don't have an account yet? Please select your account type to sign up.</p>
+            <button class="user-type-btn youth-btn" onclick="redirectToYouthSignup(); closeSignupModal(); return false;">Youth</button>
+            <button class="user-type-btn org-btn" onclick="redirectToOrgSignup(); closeSignupModal(); return false;">Organization</button>
+        </div>
+    </div>
+
+    <script>
+        // Login Modal Functions
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+            console.log('Login modal shown'); // For debugging (remove in production)
+        }
+
+        function closeLoginModal(event) {
+            document.getElementById('loginModal').style.display = 'none';
+            console.log('Login modal closed'); // For debugging
+        }
+
+        function redirectToYouthLogin() {
+            window.location.href = 'youth-login.html';
+        }
+
+        function redirectToOrgLogin() {
+            window.location.href = 'org-login.html';
+        }
+
+        // Signup Modal Functions
+        function showSignupModal() {
+            document.getElementById('signupModal').style.display = 'block';
+            console.log('Signup modal shown'); // For debugging
+        }
+
+        function closeSignupModal(event) {
+            document.getElementById('signupModal').style.display = 'none';
+            console.log('Signup modal closed'); // For debugging
+        }
+
+        function redirectToYouthSignup() {
+            window.location.href = 'youth-signup.html';
+        }
+
+        function redirectToOrgSignup() {
+            window.location.href = 'org-signup.html';
+        }
+    </script>
+</body>
+</html>
