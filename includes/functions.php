@@ -13,7 +13,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-session_start();  
+//session_start();  
 
 function startSecureSession() {
     if (session_status() === PHP_SESSION_NONE) {
