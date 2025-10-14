@@ -22,7 +22,13 @@ define('SITE_URL', $env['SITE_URL']);
 define('SESSION_NAME', $env['SESSION_NAME']);
 
 // Security
-define('CSRF_SECRET', $env['CSRF_SECRET']);
+if (empty($env['CSRF_SECRET'])) {
+    $generatedSecret = bin2hex(random_bytes(32));
+    define('CSRF_SECRET', $generatedSecret);
+    error_log("⚠️ Generated new CSRF secret: $generatedSecret");
+} else {
+    define('CSRF_SECRET', $env['CSRF_SECRET']);
+}
 
 // Initialize session safely
 session_name(SESSION_NAME);
