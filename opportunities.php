@@ -1,14 +1,13 @@
 <?php
 /**
  * opportunities.php
- * Handles CRUD operations for the Opportunities table
- * Part of the EduBridge project
+ * Handles CRUD operations for the Opportunities table + Youth Applications
+ * Updated for integration with front-end application form (EduBridge project)
  */
 
 header("Content-Type: application/json");
-require_once 'db.php';  // include the shared database connection
+require_once 'db.php';  // include database connection
 
-// Determine the requested action (?action=create/read/update/delete)
 $action = $_GET['action'] ?? null;
 
 switch ($action) {
@@ -17,6 +16,9 @@ switch ($action) {
         break;
     case 'read':
         readOpportunities($pdo);
+        break;
+    case 'apply':
+        applyForOpportunity($pdo);
         break;
     case 'update':
         updateOpportunity($pdo);
@@ -30,7 +32,7 @@ switch ($action) {
 }
 
 /**
- * CREATE - Insert a new opportunity into the database
+ * CREATE - Insert a new opportunity (admin functionality)
  */
 function createOpportunity($pdo) {
     $data = getRequestData();
@@ -52,13 +54,40 @@ function createOpportunity($pdo) {
 }
 
 /**
- * READ - Retrieve all opportunities
+ * READ - Retrieve all predefined opportunities
  */
 function readOpportunities($pdo) {
     $stmt = $pdo->query("SELECT * FROM opportunities ORDER BY opportunityid ASC");
     $opportunities = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     sendResponse($opportunities, 200);
+}
+
+/**
+ * APPLY - Youth applies for an opportunity
+ */
+function applyForOpportunity($pdo) {
+    $data = getRequestData();
+
+    // Validation
+    if (empty($data['name']) || empty($data['email']) || empty($data['opportunityid'])) {
+        sendResponse(["error" => "Missing applicant name, email, or opportunity ID"], 400);
+        return;
+    }
+
+    // Insert into applications table
+    $sql = "INSERT INTO applications (name, email, phone, opportunityid, message) 
+            VALUES (:name, :email, :phone, :opportunityid, :message)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        ':name'          => $data['name'],
+        ':email'         => $data['email'],
+        ':phone'         => $data['phone'] ?? null,
+        ':opportunityid' => $data['opportunityid'],
+        ':message'       => $data['message'] ?? null
+    ]);
+
+    sendResponse(["message" => "Application submitted successfully"], 201);
 }
 
 /**
@@ -94,7 +123,6 @@ function deleteOpportunity($pdo) {
 
     $sql = "DELETE FROM opportunities WHERE opportunityid = :id";
     $stmt = $pdo->prepare($sql);
-
     $stmt->execute([':id' => $data['opportunityid']]);
 
     sendResponse(["message" => "Opportunity deleted successfully"], 200);

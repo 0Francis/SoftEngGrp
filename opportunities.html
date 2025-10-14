@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edu Bridge | Opportunities</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+        margin: 0; padding: 0;
+    }
+    .container { max-width: 900px; margin: 40px auto; padding: 20px; }
+    h1 { text-align: center; color: #4a90e2; }
+    .opportunity {
+        background: white; border-left: 4px solid #4a90e2;
+        padding: 20px; border-radius: 10px;
+        margin-bottom: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    .apply-btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background: #4a90e2;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    /* Popup Form */
+    .modal {
+        display: none; position: fixed; top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        justify-content: center; align-items: center;
+    }
+    .modal-content {
+        background: white; padding: 20px;
+        border-radius: 10px; width: 90%; max-width: 400px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Available Opportunities</h1>
+    <div id="opportunities"></div>
+</div>
+
+<!-- Popup Modal -->
+<div class="modal" id="applyModal">
+    <div class="modal-content">
+        <h3>Apply for <span id="jobTitle"></span></h3>
+        <form id="applicationForm">
+            <input type="hidden" id="opportunityId">
+            <label>Name:</label><br>
+            <input type="text" id="name" required><br><br>
+            <label>Email:</label><br>
+            <input type="email" id="email" required><br><br>
+            <label>Phone:</label><br>
+            <input type="text" id="phone"><br><br>
+            <label>Message:</label><br>
+            <textarea id="message"></textarea><br><br>
+            <button type="submit">Submit Application</button>
+            <button type="button" onclick="closeModal()">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<script>
+const apiBase = 'http://localhost/edubridge'; // adjust to your folder
+
+// Load opportunities dynamically
+async function loadOpportunities() {
+    const res = await fetch(`${apiBase}/opportunities.php?action=read`);
+    const data = await res.json();
+    const container = document.getElementById('opportunities');
+    container.innerHTML = '';
+
+    data.forEach(opp => {
+        const div = document.createElement('div');
+        div.className = 'opportunity';
+        div.innerHTML = `
+            <h3>${opp.title}</h3>
+            <p><strong>${opp.organization}</strong></p>
+            <p>${opp.description}</p>
+            <p><b>Duration:</b> ${opp.duration} | <b>Deadline:</b> ${opp.deadline}</p>
+            <button class="apply-btn" onclick="openModal(${opp.opportunityid}, '${opp.title}')">Apply Now</button>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// Modal controls
+function openModal(id, title) {
+    document.getElementById('applyModal').style.display = 'flex';
+    document.getElementById('opportunityId').value = id;
+    document.getElementById('jobTitle').textContent = title;
+}
+function closeModal() {
+    document.getElementById('applyModal').style.display = 'none';
+}
+
+// Handle application submission
+document.getElementById('applicationForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = {
+        opportunityid: document.getElementById('opportunityId').value,
+        applicant_name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        message: document.getElementById('message').value
+    };
+
+    const res = await fetch(`${apiBase}/applications.php?action=apply`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    alert(result.message || result.error);
+    closeModal();
+});
+
+// Load data on page load
+window.onload = loadOpportunities;
+</script>
+
+</body>
+</html>

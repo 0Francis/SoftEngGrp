@@ -1,0 +1,221 @@
+/* opportunities.css */
+/* ---------------------------------------------------------- */
+/* Futuristic Blue & White Theme (Enhanced for Application UI) */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+  --primary: #007bff;
+  --primary-light: #5ec4ff;
+  --primary-dark: #004a99;
+  --accent: #00d4ff;
+  --bg: #f3f8ff;
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --text: #0b1a33;
+  --muted: #6c757d;
+  --border: rgba(0, 123, 255, 0.15);
+  --shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+  --transition: all 0.3s ease-in-out;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(115deg, #e6f0ff, #ffffff, #f8fbff);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER BAR */
+.topbar {
+  background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  border-bottom: 2px solid var(--accent);
+}
+
+.topbar h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* CONTAINER SECTION */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1.5rem;
+  gap: 2rem;
+}
+
+/* OPPORTUNITY CARD */
+.card {
+  background: var(--card-bg);
+  border-radius: 1.2rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  padding: 1.8rem;
+  width: 100%;
+  max-width: 380px;
+  transition: var(--transition);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -40%;
+  width: 180%;
+  height: 180%;
+  background: radial-gradient(circle at center, rgba(0, 123, 255, 0.08), transparent 70%);
+  animation: rotate 12s linear infinite;
+  z-index: 0;
+}
+
+.card * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(0, 123, 255, 0.25);
+}
+
+/* CARD CONTENT */
+.card h5 {
+  color: var(--primary-dark);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+}
+
+.card strong {
+  color: var(--text);
+}
+
+/* APPLY BUTTON */
+.btn {
+  background: var(--primary);
+  color: white;
+  padding: 0.7rem 1.4rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  width: 100%;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 123, 255, 0.3);
+}
+
+/* MODAL (APPLICATION FORM) */
+.modal-content {
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+
+.modal-header {
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  color: white;
+  border-bottom: none;
+}
+
+.modal-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.modal-body label {
+  font-weight: 500;
+  color: var(--primary-dark);
+  margin-bottom: 0.4rem;
+}
+
+.modal-body input, .modal-body textarea {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 0.7rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.modal-body input:focus, 
+.modal-body textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.modal-body textarea {
+  resize: none;
+}
+
+/* CONFIRMATION MESSAGE */
+.message {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 500;
+  color: var(--primary-dark);
+  font-size: 1rem;
+  background: rgba(0, 123, 255, 0.1);
+  border-radius: 0.8rem;
+  padding: 0.75rem;
+  display: none;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+}
