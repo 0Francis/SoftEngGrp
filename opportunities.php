@@ -1,152 +1,80 @@
 <?php
-/**
- * opportunities.php
- * Handles CRUD operations for the Opportunities table + Youth Applications
- * Updated for integration with front-end application form (EduBridge project)
- */
+require_once __DIR__ . '/db.php';
 
 header("Content-Type: application/json");
-require_once 'db.php';  // include database connection
 
-$action = $_GET['action'] ?? null;
+$pdo = getDBConnection();
+$action = $_GET['action'] ?? '';
 
 switch ($action) {
-    case 'create':
-        createOpportunity($pdo);
-        break;
+
+    // READ all opportunities
     case 'read':
-        readOpportunities($pdo);
+        try {
+            $stmt = $pdo->query("
+                SELECT 
+                    o.opportunity_id AS opportunityid,
+                    o.title,
+                    o.description,
+                    o.duration,
+                    o.deadline,
+                    org.org_name AS organization,
+                    o.location,
+                    o.category,
+                    o.status
+                FROM opportunities o
+                JOIN organizations org ON o.org_id = org.org_id
+                ORDER BY o.date_posted DESC
+            ");
+            $rows = $stmt->fetchAll();
+            echo json_encode($rows);
+        } catch (PDOException $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
         break;
-    case 'apply':
-        applyForOpportunity($pdo);
+
+    // CREATE new opportunity
+    case 'create':
+        $data = json_decode(file_get_contents('php://input'), true);
+        if (!$data) { echo json_encode(['error' => 'Invalid data']); exit; }
+
+        try {
+            $stmt = $pdo->prepare("
+                INSERT INTO opportunities 
+                (org_id, title, description, skills_required, duration, deadline, location, category, status)
+                VALUES (:org_id, :title, :description, :skills_required, :duration, :deadline, :location, :category::opportunity_category, :status::opportunity_status)
+            ");
+            $stmt->execute([
+                ':org_id' => $data['org_id'],
+                ':title' => $data['title'],
+                ':description' => $data['description'],
+                ':skills_required' => $data['skills_required'] ?? '',
+                ':duration' => $data['duration'] ?? '',
+                ':deadline' => $data['deadline'] ?? null,
+                ':location' => $data['location'] ?? '',
+                ':category' => $data['category'] ?? 'Other',
+                ':status' => $data['status'] ?? 'Open'
+            ]);
+            echo json_encode(['message' => 'Opportunity created successfully!']);
+        } catch (PDOException $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
         break;
-    case 'update':
-        updateOpportunity($pdo);
-        break;
+
+    // DELETE opportunity
     case 'delete':
-        deleteOpportunity($pdo);
+        $id = $_GET['id'] ?? 0;
+        if (!$id) { echo json_encode(['error' => 'Missing ID']); exit; }
+
+        try {
+            $stmt = $pdo->prepare("DELETE FROM opportunities WHERE opportunity_id = :id");
+            $stmt->execute([':id' => $id]);
+            echo json_encode(['message' => 'Opportunity deleted successfully']);
+        } catch (PDOException $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
         break;
+
     default:
-        sendResponse(["error" => "Invalid or missing action"], 400);
-        break;
+        echo json_encode(['error' => 'Invalid action']);
 }
-
-/**
- * CREATE - Insert a new opportunity (admin functionality)
- */
-function createOpportunity($pdo) {
-    $data = getRequestData();
-
-    $sql = "INSERT INTO opportunities (title, description, skillsrequired, duration, deadline, organization) 
-            VALUES (:title, :description, :skills, :duration, :deadline, :organization)";
-    $stmt = $pdo->prepare($sql);
-
-    $stmt->execute([
-        ':title'        => $data['title'],
-        ':description'  => $data['description'],
-        ':skills'       => $data['skillsrequired'],
-        ':duration'     => $data['duration'],
-        ':deadline'     => $data['deadline'],
-        ':organization' => $data['organization']
-    ]);
-
-    sendResponse(["message" => "Opportunity created successfully"], 201);
-}
-
-/**
- * READ - Retrieve all predefined opportunities
- */
-function readOpportunities($pdo) {
-    $stmt = $pdo->query("SELECT * FROM opportunities ORDER BY opportunityid ASC");
-    $opportunities = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    sendResponse($opportunities, 200);
-}
-
-/**
- * APPLY - Youth applies for an opportunity
- */
-function applyForOpportunity($pdo) {
-    $data = getRequestData();
-
-    // Validation
-    if (empty($data['name']) || empty($data['email']) || empty($data['opportunityid'])) {
-        sendResponse(["error" => "Missing applicant name, email, or opportunity ID"], 400);
-        return;
-    }
-
-    // Insert into applications table
-    $sql = "INSERT INTO applications (name, email, phone, opportunityid, message) 
-            VALUES (:name, :email, :phone, :opportunityid, :message)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ':name'          => $data['name'],
-        ':email'         => $data['email'],
-        ':phone'         => $data['phone'] ?? null,
-        ':opportunityid' => $data['opportunityid'],
-        ':message'       => $data['message'] ?? null
-    ]);
-
-    sendResponse(["message" => "Application submitted successfully"], 201);
-}
-
-/**
- * UPDATE - Modify an existing opportunity
- */
-function updateOpportunity($pdo) {
-    $data = getRequestData();
-
-    $sql = "UPDATE opportunities 
-            SET title = :title, description = :description, skillsrequired = :skills, 
-                duration = :duration, deadline = :deadline, organization = :organization
-            WHERE opportunityid = :id";
-    $stmt = $pdo->prepare($sql);
-
-    $stmt->execute([
-        ':id'           => $data['opportunityid'],
-        ':title'        => $data['title'],
-        ':description'  => $data['description'],
-        ':skills'       => $data['skillsrequired'],
-        ':duration'     => $data['duration'],
-        ':deadline'     => $data['deadline'],
-        ':organization' => $data['organization']
-    ]);
-
-    sendResponse(["message" => "Opportunity updated successfully"], 200);
-}
-
-/**
- * DELETE - Remove an opportunity
- */
-function deleteOpportunity($pdo) {
-    $data = getRequestData();
-
-    $sql = "DELETE FROM opportunities WHERE opportunityid = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([':id' => $data['opportunityid']]);
-
-    sendResponse(["message" => "Opportunity deleted successfully"], 200);
-}
-
-/**
- * Utility: Read JSON input from request body
- */
-function getRequestData() {
-    $raw = file_get_contents("php://input");
-    $data = json_decode($raw, true);
-
-    if (!$data) {
-        sendResponse(["error" => "Invalid or missing JSON data"], 400);
-        exit;
-    }
-    return $data;
-}
-
-/**
- * Utility: Send JSON response with status code
- */
-function sendResponse($data, $statusCode = 200) {
-    http_response_code($statusCode);
-    echo json_encode($data);
-}
-?>
