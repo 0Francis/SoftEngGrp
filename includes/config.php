@@ -1,7 +1,4 @@
 <?php
-// ================================================
-// CONFIG.PHP — Secure environment configuration
-// ================================================
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -35,10 +32,12 @@ define('SMTP_PASS', env('SMTP_PASS', ''));
 define('FROM_EMAIL', env('FROM_EMAIL', ''));
 define('FROM_NAME', env('FROM_NAME', 'EduBridge'));
 
-// === Site Config ===
-define('SITE_URL', env('SITE_URL', 'http://localhost/'));
-define('SESSION_NAME', env('SESSION_NAME', 'edubridge_session'));
-define('CSRF_SECRET', env('CSRF_SECRET', bin2hex(random_bytes(16))));
+// Site configuration
+define('SITE_URL', $env['SITE_URL']);
+define('SESSION_NAME', $env['SESSION_NAME']);
+
+// Security
+define('CSRF_SECRET', $env['CSRF_SECRET']);
 
 // === Secure session ===
 session_name(SESSION_NAME);
