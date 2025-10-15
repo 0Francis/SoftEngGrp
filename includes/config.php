@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$envPath = __DIR__ . '/../.env';  // Assuming .env is in the root
+$envPath = __DIR__ . '/../.env';  
 if (!file_exists($envPath)) {
     die("❌ Missing .env file at $envPath");
 }

@@ -2,10 +2,11 @@
 require_once 'config.php';
 require_once 'db.php';  
 
-if (file_exists('../vendor/autoload.php')) { 
-    require '../vendor/autoload.php';
-} else {
-    die("Composer vendor not found. Run 'composer install' in SoftEngGrp folder.");
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+} 
+else {
+    die("Composer vendor not found. Please run 'composer install' in the SoftEngGrp folder.");
 }
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
