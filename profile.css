@@ -172,3 +172,50 @@ textarea, input {
     transform: translateY(0);
   }
 }
+
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .container {
+    flex-direction: column;  
+    align-items: center;
+    gap: 30px;
+  }
+
+  #profileForm, #profilePreview {
+    width: 95%;
+    margin: 0;
+  }
+
+  #profilePreview {
+    height: auto;
+    align-items: flex-start;
+  }
+
+  button {
+    width: 100%;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  input, textarea {
+    font-size: 0.9rem;
+  }
+
+  #profilePreview {
+    padding: 15px;
+  }
+}
+
