@@ -1,18 +1,44 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+background: linear-gradient(135deg, #E3EBF9, #FFFFFF);
+
 }
 
 h1 {
   text-align: center;
-  color: #333;
+  font-family: 'montserrat', sans-serif ;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  position: relative;
 }
+
+h1::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+background: #4A90E2;
+
+  margin: 8px auto 0;   
+  border-radius: 2px;
+}
+
+
+p {
+  text-align: left;
+  margin-left: 5%;
+  color: #555;
+}
+ 
 
 
 h2 {
   margin-top: 0;
-  color: #0077cc;
-  border-bottom: 2px solid #0077cc;
+  color: #4A90E2;
+  border-bottom: 2px solid #4A90E2;
   padding-bottom: 5px;
 }
 
@@ -28,21 +54,47 @@ h2 {
 }
 
 #profileForm {
- flex: 1.2;
+ flex: 1.5;
   background: #fff;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 1px solid #e0e6f0;
+  border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ transition: all 0.3s ease;
+ 
 }
 
 #profilePreview{
-    flex:0.8;
+    flex:none;
     background: #fff;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e6f0;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15);
+  width: 300px;       
+  height: 300px;          
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+margin-left: 40px;
+transition: all 0.3s ease;
+
+}
+
+.profile-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: url('https://cdn-icons-png.flaticon.com/512/847/847969.png') no-repeat center/cover;
+  margin: 0 auto 10px;
+  border: 2px solid #4A90E2;
+  box-shadow: 0 2px 6px rgba(74, 144, 226, 0.3);
+}
+
+.profile-icon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(74, 144, 226, 0.5);
 }
 
 #profileForm:hover,
@@ -50,6 +102,7 @@ h2 {
   transform: translateY(-5px); 
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); 
   transition: all 0.3s ease; 
+  background: #f8fbff
 }
 
 
@@ -63,7 +116,8 @@ input, textarea {
 }
 
 button {
-  background: #0077cc;
+background: #4A90E2;
+box-shadow: 0 3px 8px rgba(74, 144, 226, 0.3);
   color: white;
   padding: 10px 15px;
   border: none;
@@ -72,5 +126,34 @@ button {
 }
 
 button:hover {
-  background: #005fa3;
+background: #357ABD;
+box-shadow: 0 4px 12px rgba(74, 144, 226, 0.45);
+}
+
+label {
+  font-weight: 600;
+  color: #333;
+}
+
+textarea, input {
+  background: #fdfdfd;
+}
+
+#profilePreview p b {
+  color: #4A90E2;
+}
+
+.container {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
